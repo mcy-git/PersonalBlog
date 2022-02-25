@@ -13,13 +13,6 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
+//事件总线
 import eventBus from "./eventBus";
 Vue.prototype.$Bus = eventBus;
-import * as blogApi from "./api/blog";
-// blogApi.postComment({
-//   nickname: "名字：小明",
-// 	content: "随便写",
-// 	blogId: 5
-// }).then((r)=>{
-//   console.log("分页评论", r);
-// })
