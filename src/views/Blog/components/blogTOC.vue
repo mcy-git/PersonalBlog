@@ -31,7 +31,10 @@ export default {
     handleSelect(item) {
       location.hash = item.anchor;
     },
-    setActive() {
+    setActive(dom) {
+      if (!dom){
+        return;
+      }
       //每次设置前清空
       this.activeAnchor = "";
       //范围

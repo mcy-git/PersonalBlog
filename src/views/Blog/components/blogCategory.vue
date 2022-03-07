@@ -19,7 +19,6 @@ export default {
       return getBlogTypes();
     },
     handleSelect(item){
-      console.log(item);
       const query = {
         page: 1,
         limit: this.limit,

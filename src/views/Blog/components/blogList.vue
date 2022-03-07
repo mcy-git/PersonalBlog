@@ -4,7 +4,7 @@
       <li v-for="item in data.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
           <router-link :to="{ name: 'blogDetail', params: { id: item.id } }">
-            <img :src="item.thumb" :alt="item.title" :title="item.title" />
+            <img :src="item.thumb" :alt="item.title" :title="item.title"/>
           </router-link>
         </div>
         <div class="main">
@@ -16,12 +16,13 @@
             <span>浏览：{{ item.commentNumber }}</span>
             <span>评论：{{ item.scanNumber }}</span>
             <router-link
-              :to="{
+                :to="{
                 name: 'categoryBlog',
                 params: { categoryId: item.category.id },
               }"
-              class=""
-              >{{ item.category.name }}</router-link
+                class=""
+            >{{ item.category.name }}
+            </router-link
             >
           </div>
           <div class="desc">
@@ -32,30 +33,45 @@
     </ul>
     <!-- 分页放到这里 -->
     <Pager
-      v-if="!isLoading && data.total"
-      @pageChange="handlePageChange"
-      :total="data.total"
-      :current="routeInfo.page"
-      :limit="routeInfo.limit"
+        v-if="!isLoading && data.total"
+        @pageChange="handlePageChange"
+        :total="data.total"
+        :current="routeInfo.page"
+        :limit="routeInfo.limit"
     />
   </div>
 </template>
 
 <script>
 import Pager from "@/components/Pager";
-import { getBlogs } from "@/api/blog";
+import {getBlogs} from "@/api/blog";
 import fetchData from "@/mixins/fetchData";
+
 export default {
   mixins: [fetchData({})],
   components: {
     Pager,
   },
+  mounted() {
+    this.$Bus.$on("SetDetailScroll", this.handleSetScroll);
+    this.$refs.blogList.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    this.$Bus.$off("SetDetailScroll", this.handleSetScroll);
+    this.$Bus.$emit("DetailScroll");
+  },
   methods: {
+    handleScroll() {
+      this.$Bus.$emit("DetailScroll", this.$refs.blogList);
+    },
+    handleSetScroll(top) {
+      this.$refs.blogList.scrollTop = top;
+    },
     fetchData() {
       return getBlogs(
-        this.routeInfo.page,
-        this.routeInfo.limit,
-        this.routeInfo.categoryId
+          this.routeInfo.page,
+          this.routeInfo.limit,
+          this.routeInfo.categoryId
       );
     },
     handlePageChange(newPage) {
@@ -106,6 +122,7 @@ export default {
 
 <style scoped lang="less">
 @import "~@/styles/var.less";
+
 .blog-list-container {
   line-height: 1.7;
   position: relative;
@@ -116,13 +133,16 @@ export default {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
 li {
   display: flex;
   padding: 15px 0;
   border-bottom: 1px solid @gray;
+
   .thumb {
     flex: 0 0 auto;
     margin-right: 15px;
+
     img {
       display: block;
       max-width: 200px;
@@ -131,16 +151,20 @@ li {
       border-radius: 5px;
     }
   }
+
   .main {
     flex: 1 1 auto;
   }
+
   .aside {
     font-size: 12px;
     color: @gray;
+
     span {
       margin-right: 15px;
     }
   }
+
   .desc {
     margin: 15px 0;
     font-size: 14px;
