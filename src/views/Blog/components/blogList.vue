@@ -4,7 +4,7 @@
       <li v-for="item in data.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
           <router-link :to="{ name: 'blogDetail', params: { id: item.id } }">
-            <img :src="item.thumb" :alt="item.title" :title="item.title"/>
+            <img v-lazy="item.thumb" :alt="item.title" :title="item.title"/>
           </router-link>
         </div>
         <div class="main">
@@ -46,27 +46,13 @@
 import Pager from "@/components/Pager";
 import {getBlogs} from "@/api/blog";
 import fetchData from "@/mixins/fetchData";
-
+import mainScroll from "@/mixins/mainScroll";
 export default {
-  mixins: [fetchData({})],
+  mixins: [fetchData({}), mainScroll("blogList")],
   components: {
     Pager,
   },
-  mounted() {
-    this.$Bus.$on("SetDetailScroll", this.handleSetScroll);
-    this.$refs.blogList.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    this.$Bus.$off("SetDetailScroll", this.handleSetScroll);
-    this.$Bus.$emit("DetailScroll");
-  },
   methods: {
-    handleScroll() {
-      this.$Bus.$emit("DetailScroll", this.$refs.blogList);
-    },
-    handleSetScroll(top) {
-      this.$refs.blogList.scrollTop = top;
-    },
     fetchData() {
       return getBlogs(
           this.routeInfo.page,

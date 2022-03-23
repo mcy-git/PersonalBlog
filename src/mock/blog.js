@@ -20,7 +20,7 @@ Mock.mock(/^\/api\/blog(\?.+)?$/, "get", function (options) {
                 },
                 "scanNumber|500-1500": 1,
                 "commentNumber|300-1300": 1,
-                "thumb|1": ["@image('200x100', '#a1a3a6', '#FFF', 'png', 'abcdef')", null],
+                "thumb|1": ["@image('200x100', '@color', '#FFF', 'png', '@word')", "@image('200x100', '@color', '#FFF', 'png', '@word')", "@image('200x100', '@color', '#FFF', 'png', '@word')","@image('200x100', '@color', '#FFF', 'png', '@word')","@image('200x100', '@color', '#FFF', 'png', '@word')", null],
                 createDate: "@date()",
             }
         ]

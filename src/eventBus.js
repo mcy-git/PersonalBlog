@@ -1,6 +1,6 @@
 //事件总线
 import Vue from "vue";
-
+const app = new Vue({});
 /**
  * 事件命：DetailScroll
  * 含义：主区域滚动触发
@@ -14,4 +14,5 @@ import Vue from "vue";
  * 参数：
  * --滚动到的位置值
  */
-export default new Vue({});
+Vue.prototype.$Bus = app;
+export default app;

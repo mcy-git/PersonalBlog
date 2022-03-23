@@ -1,6 +1,6 @@
 <template>
   <div class="SiteAside">
-      <Avatar class="avatar" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F54%2F45%2Ffe%2F5445fee00862d5d3bc93488d42da0c22.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645963515&t=92a060c1c7a98159c99eb075251bcbd0" />
+      <Avatar class="avatar" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2F22%2Fa6%2F5d%2F83%2Fae689318a827319a98788026bb32d99a.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649425156&t=dd2bc759e141439c9f6b88189c35894d" />
       <Menu />
       <Contact />
       <p class="beian">备案号： 157987465</p>

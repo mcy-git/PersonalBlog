@@ -19,23 +19,15 @@ import blogToc from "./components/blogTOC.vue";
 import Layout from "@/components/Layout";
 import fetchData from "@/mixins/fetchData";
 import {getBlog} from "@/api/blog";
-
+import mainScroll from "@/mixins/mainScroll";
 export default {
   name: "Detail",
-  mixins: [fetchData({})],
+  mixins: [fetchData({}), mainScroll("DetailContainer")],
   components: {
     Layout,
     blogToc,
     blogDetail,
     blogComment,
-  },
-  mounted() {
-    this.$Bus.$on("SetDetailScroll", this.handleSetScroll);
-    this.$refs.DetailContainer.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    this.$Bus.$off("SetDetailScroll", this.handleSetScroll);
-    this.$Bus.$emit("DetailScroll");
   },
   updated() {
     let hash = location.hash;
@@ -47,12 +39,6 @@ export default {
   methods: {
     fetchData() {
       return getBlog(this.$route.params.id);
-    },
-    handleScroll() {
-      this.$Bus.$emit("DetailScroll", this.$refs.DetailContainer);
-    },
-    handleSetScroll(top) {
-      this.$refs.DetailContainer.scrollTop = top;
     },
   }
 }
